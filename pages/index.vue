@@ -1,34 +1,17 @@
 <template>
-  <section class="section">
-    <div class="columns is-mobile">
-      <card title="Free" icon="github">
-        Open source on <a href="https://github.com/buefy/buefy"> GitHub </a>
-      </card>
-
-      <card title="Responsive" icon="cellphone-link">
-        <b class="has-text-grey"> Every </b> component is responsive
-      </card>
-
-      <card title="Modern" icon="alert-decagram">
-        Built with <a href="https://vuejs.org/"> Vue.js </a> and
-        <a href="http://bulma.io/"> Bulma </a>
-      </card>
-
-      <card title="Lightweight" icon="arrange-bring-to-front">
-        No other internal dependency
-      </card>
-    </div>
-  </section>
+  <div>
+    <nuxt-content :document="pageContent" />
+  </div>
 </template>
 
-<script>
-import Card from '~/components/Card'
+<script lang="ts">
+import Vue from 'vue'
 
-export default {
-  name: 'HomePage',
+export default Vue.extend({
+  async asyncData({ $content }) {
+    const pageContent = await $content('pages', 'index').fetch()
 
-  components: {
-    Card,
+    return { pageContent }
   },
-}
+})
 </script>
