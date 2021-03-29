@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <article>
     <nuxt-content :document="pageContent" />
-  </div>
+  </article>
 </template>
 
 <script lang="ts">
