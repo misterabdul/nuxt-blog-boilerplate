@@ -12,7 +12,7 @@
         </nuxt-link>
       </li>
     </ul>
-    <div v-else>No result.</div>
+    <div v-else>{{ pageQuery === 1 ? 'No result.' : 'Empty page.' }}</div>
   </div>
 </template>
 
@@ -23,13 +23,23 @@ export default Vue.extend({
   data() {
     return {
       searchQuery: '',
+      pageQuery: 1,
       articles: {},
     }
   },
   watch: {
     $route() {
+      this.fetchContent()
+    },
+  },
+  mounted() {
+    this.fetchContent()
+  },
+  methods: {
+    fetchContent() {
       this.searchQuery = String(this.$route.query?.q ?? '')
-      this.loadArticle(this.searchQuery)
+      this.pageQuery = Number(this.$route.query?.page ?? 1)
+      this.loadArticles(this.searchQuery, this.pageQuery - 1)
         .then((articles) => {
           this.articles = articles
         })
@@ -37,18 +47,6 @@ export default Vue.extend({
           this.articles = {}
         })
     },
-  },
-  mounted() {
-    this.searchQuery = String(this.$route.query?.q ?? '')
-    this.loadArticle(this.searchQuery)
-      .then((articles) => {
-        this.articles = articles
-      })
-      .catch(() => {
-        this.articles = {}
-      })
-  },
-  methods: {
     isArray(input: any): boolean {
       if (Array.isArray(input) && input?.length > 0) return true
       return false
@@ -70,12 +68,13 @@ export default Vue.extend({
         dateTimeObj.getSeconds()
       )
     },
-    async loadArticle(searchQuery: any) {
+    async loadArticles(searchQuery: any, pageQuery: number) {
       return await this.$content('articles')
         .search('title', searchQuery)
         .only(['title', 'description', 'slug', 'createdAt'])
         .sortBy('createdAt', 'desc')
         .limit(20)
+        .skip(20 * pageQuery)
         .fetch()
     },
   },
