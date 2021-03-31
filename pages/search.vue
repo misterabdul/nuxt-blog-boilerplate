@@ -1,15 +1,9 @@
 <template>
   <div>
-    <h1>Search results for : {{ searchQuery }}</h1>
+    <h1 class="h1">Search results for : {{ searchQuery }}</h1>
     <ul v-if="isArray(articles)">
       <li v-for="article of articles" :key="article.slug">
-        <nuxt-link :to="{ name: 'blog-slug', params: { slug: article.slug } }">
-          <div>
-            <h2>{{ article.title }}</h2>
-            <p>{{ article.description }}</p>
-            <p>{{ formatDateTime(article.createdAt) }}</p>
-          </div>
-        </nuxt-link>
+        <blog-item :article="article" />
       </li>
     </ul>
     <div v-else>{{ pageQuery === 1 ? 'No result.' : 'Empty page.' }}</div>
@@ -18,8 +12,10 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import BlogItem from '~/components/BlogItem.vue'
 
 export default Vue.extend({
+  components: { BlogItem },
   data() {
     return {
       searchQuery: '',
@@ -51,27 +47,9 @@ export default Vue.extend({
       if (Array.isArray(input) && input?.length > 0) return true
       return false
     },
-    formatDateTime(dateTime: string) {
-      const dateTimeObj = new Date(dateTime)
-
-      return (
-        dateTimeObj.getDate() +
-        ' ' +
-        dateTimeObj.toLocaleString('id-ID', { month: 'short' }) +
-        ' ' +
-        dateTimeObj.getFullYear() +
-        ', ' +
-        dateTimeObj.getHours() +
-        ':' +
-        dateTimeObj.getMinutes() +
-        ':' +
-        dateTimeObj.getSeconds()
-      )
-    },
     async loadArticles(searchQuery: any, pageQuery: number) {
       return await this.$content('articles')
         .search('title', searchQuery)
-        .only(['title', 'description', 'slug', 'createdAt'])
         .sortBy('createdAt', 'desc')
         .limit(20)
         .skip(20 * pageQuery)
@@ -80,3 +58,11 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style scoped>
+.h1 {
+  font-size: 2rem;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+</style>

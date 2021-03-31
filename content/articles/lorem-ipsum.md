@@ -1,6 +1,12 @@
 ---
 title: Lorem Ipsum
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+image:
+  src: 'pexels-pixabay-261857.jpg'
+  alt: 'Lorem Ipsum'
+author:
+  name: Abdul Pasaribu
+  link: https://github.com/misterabdul
 ---
 
 # Lorem Ipsum
@@ -21,7 +27,15 @@ _Donec ultrices, arcu et tincidunt maximus, urna nunc luctus odio, eu consequat 
 
 ### Code
 
-`Donec ut tellus et lacus finibus suscipit vel gravida ante. Phasellus blandit sapien a feugiat fringilla. Quisque molestie turpis sed sapien cursus interdum. Vestibulum molestie quam sit amet neque faucibus aliquet. Aliquam facilisis nibh eget nisi convallis consequat. Nam blandit fermentum lacinia. Nullam malesuada sagittis arcu, at tempor ante ornare vitae.`
+```c
+#include <stdio.h>
+
+int main(int argc, char* argv[]) {
+  char* text = "Donec ut tellus et lacus finibus suscipit vel gravida ante."
+  printf("%s", text);
+  return 0;
+}
+```
 
 ### Blockquote
 

@@ -95,9 +95,25 @@
   padding: 1rem;
 }
 
-.nuxt-content pre,
-.nuxt-content code {
-  background-color: #aaaaaa;
+.nuxt-content span.token.number {
+  -webkit-box-align: initial;
+  -ms-flex-align: initial;
+  align-items: initial;
+  background-color: initial;
+  border-radius: initial;
+  display: initial;
+  display: initial;
+  display: initial;
+  font-size: initial;
+  height: initial;
+  -webkit-box-pack: initial;
+  -ms-flex-pack: initial;
+  justify-content: initial;
+  margin-right: initial;
+  min-width: initial;
+  padding: initial;
+  text-align: initial;
+  vertical-align: initial;
 }
 
 /* Custom additional CSS */
