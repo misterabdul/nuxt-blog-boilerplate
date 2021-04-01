@@ -28,11 +28,64 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SiteMeta from '~/utils/SiteMeta'
 
 export default Vue.extend({
   async asyncData({ $content, params }) {
     const article = await $content('articles', params?.slug ?? '').fetch()
     return { article }
+  },
+  head() {
+    const article = (this as any)?.article
+    const meta = (this as any)?.meta
+    return {
+      title: article?.title,
+      meta: [
+        ...meta,
+        {
+          property: 'article:published_time',
+          content: article?.createdAt,
+        },
+        {
+          property: 'article:modified_time',
+          content: article?.updatedAt,
+        },
+        {
+          property: 'article:tag',
+          content: article?.tags?.toString() ?? '',
+        },
+        { name: 'twitter:label1', content: 'Written by' },
+        {
+          name: 'twitter:data1',
+          content: article?.author?.name ?? '',
+        },
+        { name: 'twitter:label2', content: 'Filed under' },
+        {
+          name: 'twitter:data2',
+          content: article?.tags?.toString() ?? '',
+        },
+      ],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}`,
+        },
+      ],
+    }
+  },
+  computed: {
+    meta() {
+      const article = (this as any)?.article
+      const metaData = {
+        type: 'article',
+        title: article?.title,
+        description: article?.description,
+        url: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}`,
+        mainImage: '/images/' + article?.image?.src,
+      }
+      return SiteMeta(metaData)
+    },
   },
   methods: {
     hasImage(article: any) {
@@ -40,7 +93,7 @@ export default Vue.extend({
     },
     getImage(src: any) {
       if (src !== null && (typeof src === 'string' || src instanceof String))
-        return require(`~/assets/images/${src}`)
+        return `/images/${src}`
       return null
     },
     hasAuthor(article: any) {

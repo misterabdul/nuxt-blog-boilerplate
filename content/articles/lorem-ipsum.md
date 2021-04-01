@@ -7,6 +7,7 @@ image:
 author:
   name: Abdul Pasaribu
   link: https://github.com/misterabdul
+tags: 'lorem, ipsum'
 ---
 
 # Lorem Ipsum

@@ -1,3 +1,7 @@
+import SiteMeta from './utils/SiteMeta'
+
+const meta = SiteMeta()
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
@@ -11,9 +15,25 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { property: 'og:site_name', content: 'Misterabdul' },
+      { property: 'og:image:width', content: '740' },
+      { property: 'og:image:height', content: '300' },
+      { name: 'twitter:site', content: '@misterabdul' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      ...meta,
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        hid: 'canonical',
+        rel: 'canonical',
+        href: 'http://localhost',
+      },
+    ],
+  },
+
+  publicRuntimeConfig: {
+    baseUrl: 'http://localhost',
   },
 
   // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-loading-indicator

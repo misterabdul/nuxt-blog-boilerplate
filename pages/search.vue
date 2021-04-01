@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SiteMeta from '~/utils/SiteMeta'
 import BlogItem from '~/components/BlogItem.vue'
 
 export default Vue.extend({
@@ -23,12 +24,30 @@ export default Vue.extend({
       articles: {},
     }
   },
+  head() {
+    const meta = SiteMeta({
+      title: 'Search Results',
+      description: 'List of search results.',
+      url: `${this.$config.baseUrl}/search`,
+    })
+    return {
+      title: 'Search Results',
+      meta: [...meta],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/search`,
+        },
+      ],
+    }
+  },
   watch: {
     $route() {
       this.fetchContent()
     },
   },
-  mounted() {
+  beforeMount() {
     this.fetchContent()
   },
   methods: {

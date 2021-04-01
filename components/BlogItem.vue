@@ -52,7 +52,7 @@ export default Vue.extend({
     },
     getImage(src: any) {
       if (src !== null && (typeof src === 'string' || src instanceof String))
-        return require(`~/assets/images/${src}`)
+        return `/images/${src}`
       return null
     },
     formatTitle(title: string) {

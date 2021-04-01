@@ -12,23 +12,49 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import SiteMeta from '~/utils/SiteMeta'
 import BlogItem from '~/components/BlogItem.vue'
 
 export default Vue.extend({
   components: { BlogItem },
+  async asyncData({ $content, route }) {
+    const pageQuery = Number(route.query?.page ?? 1)
+    const articles = await $content('articles')
+      .sortBy('createdAt', 'desc')
+      .limit(20)
+      .skip((pageQuery - 1) * 20)
+      .fetch()
+    return { articles }
+  },
   data() {
     return {
       pageQuery: 1,
       articles: {},
     }
   },
+  head() {
+    const meta = SiteMeta({
+      title: 'Blog Posts',
+      description: 'List of blog posts.',
+      url: `${this.$config.baseUrl}/blog`,
+    })
+    return {
+      title: 'Blog Articles',
+      meta: [...meta],
+      link: [
+        {
+          hid: 'canonical',
+          rel: 'canonical',
+          href: `${this.$config.baseUrl}/blog`,
+        },
+      ],
+    }
+  },
   watch: {
     $route() {
-      this.fetchContent()
+      const pageQuery = Number(this.$route.query?.page ?? 1)
+      if (this.pageQuery !== pageQuery) this.fetchContent()
     },
-  },
-  mounted() {
-    this.fetchContent()
   },
   methods: {
     fetchContent() {
