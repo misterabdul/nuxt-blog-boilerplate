@@ -1,5 +1,7 @@
 # nuxt-blog-boilerplate
 
+Blog-like template for static site created using [NuxtJS](https://nuxtjs.org/), [Buefy](https://buefy.org/), and [Tailwind Typography](https://github.com/tailwindlabs/tailwindcss-typography).
+
 ## Build Setup
 
 ```bash
@@ -16,5 +18,3 @@ $ npm run start
 # generate static project
 $ npm run generate
 ```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
