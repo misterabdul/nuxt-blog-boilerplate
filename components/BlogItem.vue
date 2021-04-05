@@ -17,9 +17,9 @@
         <p v-if="hasAuthor(article)" class="author">
           By :
           <a :href="getAuthor(article.author).link">
-            {{ getAuthor(article.author).name }}
-          </a>
-          ,{{ formatDateTime(article.createdAt) }}
+            {{ getAuthor(article.author).name }}</a
+          >,
+          {{ formatDateTime(article.createdAt) }}
         </p>
         <div class="line" />
         <p class="description">{{ formatDescription(article.description) }}</p>
@@ -66,7 +66,7 @@ export default Vue.extend({
       return (
         dateTimeObj.getDate() +
         ' ' +
-        dateTimeObj.toLocaleString('id-ID', { month: 'short' }) +
+        dateTimeObj.toLocaleString('id-ID', { month: 'long' }) +
         ' ' +
         dateTimeObj.getFullYear()
       )

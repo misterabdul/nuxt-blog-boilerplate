@@ -105,7 +105,7 @@ export default Vue.extend({
       return (
         dateTimeObj.getDate() +
         ' ' +
-        dateTimeObj.toLocaleString('id-ID', { month: 'short' }) +
+        dateTimeObj.toLocaleString('id-ID', { month: 'long' }) +
         ' ' +
         dateTimeObj.getFullYear()
       )
