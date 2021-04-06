@@ -61,6 +61,79 @@
   font-size: 0.88rem;
 }
 
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .nuxt-content p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .nuxt-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .nuxt-content h2 {
+    font-size: 1.8rem;
+  }
+
+  .nuxt-content h3 {
+    font-size: 1.6rem;
+  }
+
+  .nuxt-content h4 {
+    font-size: 1rem;
+  }
+
+  .nuxt-content h5 {
+    font-size: 1rem;
+  }
+
+  .nuxt-content h6 {
+    font-size: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .nuxt-content p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .nuxt-content h1 {
+    font-size: 3rem;
+  }
+
+  .nuxt-content h2 {
+    font-size: 2.8rem;
+  }
+
+  .nuxt-content h3 {
+    font-size: 2rem;
+  }
+
+  .nuxt-content h4 {
+    font-size: 1.5rem;
+  }
+
+  .nuxt-content h5 {
+    font-size: 1.2rem;
+  }
+
+  .nuxt-content h6 {
+    font-size: 1rem;
+  }
+}
+
+.nuxt-content h1 a,
+.nuxt-content h2 a,
+.nuxt-content h3 a,
+.nuxt-content h4 a,
+.nuxt-content h5 a,
+.nuxt-content h6 a {
+  display: none;
+}
+
 /* https://github.com/mrmrs/fluidity */
 
 .nuxt-content img,
@@ -86,8 +159,7 @@
 .nuxt-content h2,
 .nuxt-content h3 {
   border-bottom: 2px solid #aaaaaa;
-  margin-bottom: 1.15rem;
-  padding-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
 }
 
 .nuxt-content blockquote {

@@ -9,10 +9,12 @@
     </div>
     <div v-if="hasAuthor(article)">
       <p class="author">
-        By :
-        <a :href="article.author.link">{{ article.author.name }}</a
-        >,
-        {{ formatDateTime(article.createdAt) }}
+        <i>
+          By :
+          <a :href="article.author.link">{{ article.author.name }}</a
+          >,
+          {{ formatDateTime(article.createdAt) }}
+        </i>
       </p>
     </div>
     <div v-else>
@@ -119,5 +121,17 @@ export default Vue.extend({
   margin-top: 10px;
   font-size: 1rem;
   text-align: right;
+}
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .author {
+    margin-top: 3px;
+    font-size: 0.65rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .author {
+    margin-top: 5px;
+    font-size: 0.8rem;
+  }
 }
 </style>

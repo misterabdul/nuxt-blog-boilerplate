@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isNotNull(article)">
+  <div v-if="isNotNull(article)" class="item">
     <div class="columns">
       <div v-if="hasImage(article)" class="column is-one-quarter">
         <nuxt-link :to="{ name: 'blog-slug', params: { slug: article.slug } }">
@@ -105,5 +105,22 @@ export default Vue.extend({
 .description {
   margin-top: 7px;
   font-size: 1rem;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .column {
+    padding: 0 0.75rem;
+  }
+  .item {
+    margin-bottom: 2.5rem;
+  }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .column {
+    padding: 0 0.75rem;
+  }
+  .item {
+    margin-bottom: 2.5rem;
+  }
 }
 </style>
