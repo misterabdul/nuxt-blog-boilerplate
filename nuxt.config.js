@@ -3,8 +3,8 @@ import SiteMeta from './utils/SiteMeta'
 const meta = SiteMeta()
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  // Enable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  ssr: true,
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
