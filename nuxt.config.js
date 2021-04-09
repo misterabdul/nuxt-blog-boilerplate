@@ -3,8 +3,8 @@ import SiteMeta from './utils/SiteMeta'
 const meta = SiteMeta()
 
 export default {
-  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
-  ssr: false,
+  // Enable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  ssr: true,
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -32,6 +32,12 @@ export default {
     ],
   },
 
+  // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-router
+  router: {
+    base: '/',
+  },
+
+  // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-runtime-config
   publicRuntimeConfig: {
     baseUrl: 'http://localhost',
   },
@@ -47,6 +53,11 @@ export default {
   loading: {
     color: 'white',
     height: '3px',
+  },
+
+  // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-generate
+  generate: {
+    fallback: '404.html',
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

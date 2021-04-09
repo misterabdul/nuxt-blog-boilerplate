@@ -71,7 +71,7 @@ export default Vue.extend({
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}`,
+          href: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}/`,
         },
       ],
     }
@@ -83,8 +83,8 @@ export default Vue.extend({
         type: 'article',
         title: article?.title,
         description: article?.description,
-        url: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}`,
-        mainImage: '/images/' + article?.image?.src,
+        url: `${this.$config.baseUrl}/blog/${this.$route?.params?.slug}/`,
+        mainImage: `${this.$config.baseUrl}/images/${article?.image?.src}`,
       }
       return SiteMeta(metaData)
     },

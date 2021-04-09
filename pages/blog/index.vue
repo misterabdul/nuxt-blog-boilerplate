@@ -36,7 +36,7 @@ export default Vue.extend({
     const meta = SiteMeta({
       title: 'Blog Posts',
       description: 'List of blog posts.',
-      url: `${this.$config.baseUrl}/blog`,
+      url: `${this.$config.baseUrl}/blog/`,
     })
     return {
       title: 'Blog Articles',
@@ -45,7 +45,7 @@ export default Vue.extend({
         {
           hid: 'canonical',
           rel: 'canonical',
-          href: `${this.$config.baseUrl}/blog`,
+          href: `${this.$config.baseUrl}/blog/`,
         },
       ],
     }
