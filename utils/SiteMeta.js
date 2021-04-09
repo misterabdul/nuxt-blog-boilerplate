@@ -1,9 +1,9 @@
 const type = 'website'
-const url = 'http://localhost'
+const url = 'http://localhost/'
 const title = 'NuxtJS Blog Boilerplate'
 const description =
   'Blog template/boilerplate for static site using NuxtJS, Buefy, & Tailwind Typography CSS.'
-const mainImage = '/screenshot.png'
+const mainImage = url + '/screenshot.png'
 
 export default (meta) => {
   return [
