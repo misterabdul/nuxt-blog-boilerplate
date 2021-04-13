@@ -1,11 +1,19 @@
 <template>
   <div>
     <h1 class="h1">Search results for : {{ searchQuery }}</h1>
-    <ul v-if="isArray(articles)">
-      <li v-for="article of articles" :key="article.slug">
-        <blog-item :article="article" />
-      </li>
-    </ul>
+    <div v-if="isArray(articles)">
+      <ul>
+        <li v-for="article of articles" :key="article.slug">
+          <blog-item :article="article" />
+        </li>
+      </ul>
+      <pagination-button
+        :content-path="'articles'"
+        :per-page="show"
+        :search-field="'title'"
+        :search-value="searchQuery"
+      />
+    </div>
     <div v-else>{{ pageQuery === 1 ? 'No result.' : 'Empty page.' }}</div>
   </div>
 </template>
@@ -14,13 +22,17 @@
 import Vue from 'vue'
 import SiteMeta from '~/utils/SiteMeta'
 import BlogItem from '~/components/BlogItem.vue'
+import PaginationButton from '~/components/PaginationButton.vue'
+
+const Show = 10
 
 export default Vue.extend({
-  components: { BlogItem },
+  components: { BlogItem, PaginationButton },
   data() {
     return {
       searchQuery: '',
       pageQuery: 1,
+      show: Show,
       articles: {},
     }
   },
@@ -52,14 +64,23 @@ export default Vue.extend({
   },
   methods: {
     fetchContent() {
-      this.searchQuery = String(this.$route.query?.q ?? '')
-      this.pageQuery = Number(this.$route.query?.page ?? 1)
-      this.loadArticles(this.searchQuery, this.pageQuery - 1)
+      const searchQuery = String(this.$route.query?.q ?? '')
+      const pageQuery = Number(this.$route.query?.page ?? 1)
+      this.loadArticles(searchQuery, pageQuery - 1)
         .then((articles) => {
           this.articles = articles
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          })
         })
         .catch(() => {
           this.articles = {}
+        })
+        .finally(() => {
+          this.searchQuery = searchQuery
+          this.pageQuery = pageQuery
         })
     },
     isArray(input: any): boolean {
@@ -70,8 +91,8 @@ export default Vue.extend({
       return await this.$content('articles')
         .search('title', searchQuery)
         .sortBy('createdAt', 'desc')
-        .limit(20)
-        .skip(20 * pageQuery)
+        .limit(this.show)
+        .skip(pageQuery * this.show)
         .fetch()
     },
   },
