@@ -1,11 +1,18 @@
 <template>
   <div>
     <h1 class="h1">Blog Posts</h1>
-    <ul v-if="isArray(articles)">
-      <li v-for="article of articles" :key="article.slug">
-        <blog-item :article="article" />
-      </li>
-    </ul>
+    <div v-if="isArray(articles)">
+      <ul>
+        <li v-for="article of articles" :key="article.slug">
+          <blog-item :article="article" />
+        </li>
+      </ul>
+      <pagination-button
+        :content-path="'articles'"
+        :per-page="show"
+        style="margin-top: 1rem"
+      />
+    </div>
     <div v-else>Empty</div>
   </div>
 </template>
@@ -14,9 +21,12 @@
 import Vue from 'vue'
 import SiteMeta from '~/utils/SiteMeta'
 import BlogItem from '~/components/BlogItem.vue'
+import PaginationButton from '~/components/PaginationButton.vue'
+
+const Show = 10
 
 export default Vue.extend({
-  components: { BlogItem },
+  components: { BlogItem, PaginationButton },
   async asyncData({ $content, route }) {
     const pageQuery = Number(route.query?.page ?? 1)
     const articles = await $content('articles')
@@ -29,6 +39,7 @@ export default Vue.extend({
   data() {
     return {
       pageQuery: 1,
+      show: Show,
       articles: {},
     }
   },
@@ -58,13 +69,21 @@ export default Vue.extend({
   },
   methods: {
     fetchContent() {
-      this.pageQuery = Number(this.$route.query?.page ?? 1)
-      this.loadArticles(this.pageQuery - 1)
+      const pageQuery = Number(this.$route.query?.page ?? 1)
+      this.loadArticles(pageQuery - 1)
         .then((articles) => {
           this.articles = articles
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth',
+          })
         })
         .catch(() => {
           this.articles = {}
+        })
+        .finally(() => {
+          this.pageQuery = pageQuery
         })
     },
     isArray(input: any): boolean {
@@ -74,8 +93,8 @@ export default Vue.extend({
     async loadArticles(pageQuery: number) {
       return await this.$content('articles')
         .sortBy('createdAt', 'desc')
-        .limit(20)
-        .skip(pageQuery * 20)
+        .limit(this.show)
+        .skip(pageQuery * this.show)
         .fetch()
     },
   },
